@@ -7,8 +7,8 @@ urlpatterns = [
     # path("index/", views.say_hello, name='index'),
     # path("", views.redirect),
     # path("about/", views.about, name='about'),
-    path('books/', views.list_of_books),
-    path('book/<pk>/', views.book_detail),
-    path('publishers/', views.publisher_list, name='publisher-list'),
-    path('publishers/<pk>/', views.publisher_detail, name='publisher-detail')
+    path('books/', views.BookList.as_view()),
+    path('book/<pk>/', views.BookDetail.as_view()),
+    path('publishers/', views.PublisherList.as_view(), name='publisher-list'),
+    path('publishers/<pk>/', views.PublisherDetail.as_view(), name='publisher-detail')
 ]
