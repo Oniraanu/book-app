@@ -54,15 +54,30 @@ def book_detail(request, pk):
     # return Response('error: could not find resource', status=status.HTTP_404_NOT_FOUND)
 
 
-@api_view()
+@api_view(['GET', 'POST'])
 def publisher_list(request):
-    query_set = Publisher.objects.all()
-    serializer = PublisherSerializer(query_set, many=True)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        query_set = Publisher.objects.all()
+        serializer = PublisherSerializer(query_set, many=True, context={'request' : request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'POST':
+        serializer = PublisherSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
 
-@api_view()
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 def publisher_detail(request, pk):
     query_set = get_object_or_404(Publisher, pk=pk)
-    serializer = PublisherSerializer(query_set)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        serializer = PublisherSerializer(query_set, context={'request': request})
+        return Response(serializer.data)
+    elif request.method == ('PUT', 'PATCH'):
+        serializer = PublisherSerializer(query_set, data=request.data, partial=True, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+    elif request.method == 'DELETE':
+        query_set.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
