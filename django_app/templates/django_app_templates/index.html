@@ -1,0 +1,13 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <h1> {{ name }}Say Ahhhhhh!!!!</h1>
+    <a href="{% url 'django_app:about' %}" > About </a>
+</body>
+</html>
