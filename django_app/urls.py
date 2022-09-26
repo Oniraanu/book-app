@@ -1,10 +1,10 @@
 from django.urls import path, include
 from . import views
-from rest_framework.routers import SimpleRouter
+from rest_framework.routers import SimpleRouter, DefaultRouter
 
 app_name = 'django_app'
 
-router = SimpleRouter()
+router = DefaultRouter()
 router.register('books', views.BookViewSet)
 router.register('publishers', views.PublisherViewSet)
 
