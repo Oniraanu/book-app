@@ -143,3 +143,5 @@ INTERNAL_IPS = [
 ]
 
 ADMIN_URL = 'ode/'
+
+AUTH_USER_MODEL = 'django_app.User'

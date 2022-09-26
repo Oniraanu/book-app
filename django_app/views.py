@@ -3,6 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_app.filter import BookFilter
 from django_app.models import Book, Publisher
+from django_app.pagination import BookPagination
 from django_app.serializers import BookSerializer, PublisherSerializer
 
 
@@ -13,7 +14,7 @@ class BookViewSet(ModelViewSet):
     filterset_class = BookFilter
     search_fields = ['title', 'isbn']
     ordering_fields = ['title', 'price']
-    ordering = ['asc']
+    pagination_class = BookPagination
 
 
 class BookDetailsViewSet(ModelViewSet):
